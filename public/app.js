@@ -8,7 +8,7 @@ function showSection(id) {
 
 // Cargar habitaciones
 document.getElementById('btn-rooms').onclick = async () => {
-  const res = await fetch(API_URL + 'rooms?available=true');
+  const res = await fetch(API_URL + 'rooms.php?available=true');
   const data = await res.json();
   const list = document.getElementById('rooms-list');
   list.innerHTML = data.map(r => `
@@ -23,7 +23,7 @@ document.getElementById('btn-rooms').onclick = async () => {
 
 // Cargar reservas
 document.getElementById('btn-reservations').onclick = async () => {
-  const res = await fetch(API_URL + 'reservations');
+  const res = await fetch(API_URL + 'reservations.php');
   const data = await res.json();
   const list = document.getElementById('reservations-list');
   list.innerHTML = data.map(r => `
@@ -38,7 +38,7 @@ document.getElementById('btn-reservations').onclick = async () => {
 
 // Cargar servicios
 document.getElementById('btn-services').onclick = async () => {
-  const res = await fetch(API_URL + 'services');
+  const res = await fetch(API_URL + 'services.php');
   const data = await res.json();
   const list = document.getElementById('services-list');
   list.innerHTML = data.map(s => `
@@ -52,7 +52,7 @@ document.getElementById('btn-services').onclick = async () => {
 
 // Cargar reporte de pagos
 document.getElementById('btn-report').onclick = async () => {
-  const res = await fetch(API_URL + 'payments?report=true');
+  const res = await fetch(API_URL + 'payments.php?report=true');
   const data = await res.json();
   document.getElementById('report-output').textContent = JSON.stringify(data, null, 2);
 };
