@@ -1,53 +1,134 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="utf-8">
-  <title>Hospitech | Sistema Hotelero</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <title>Hospitech - Habitaciones Disponibles</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #f4f7f9;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      color: #1a237e;
+    }
+
+    .loading {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #666;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    th {
+      background: #3949ab;
+      color: white;
+      text-align: left;
+      padding: 12px;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    tr:hover {
+      background: #f1f1f1;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: #777;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
+
 <body>
+  <header>
+    <h1>🏨 Hospitech</h1>
+    <p>Listado de habitaciones disponibles</p>
+  </header>
 
-<header>
-  <h1>🏨 Hospitech</h1>
-  <nav>
-    <button onclick="showSection('rooms')">Habitaciones</button>
-    <button onclick="showSection('reservations')">Reservas</button>
-    <button onclick="showSection('services')">Servicios</button>
-    <button onclick="showSection('reports')">Reportes</button>
-  </nav>
-</header>
+  <div id="content">
+    <div id="loading" class="loading">Cargando habitaciones disponibles...</div>
+    <table id="roomsTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Número</th>
+          <th>Tipo</th>
+          <th>Precio (USD)</th>
+        </tr>
+      </thead>
+      <tbody id="roomsBody"></tbody>
+    </table>
+  </div>
 
-<main>
-  <section id="rooms" class="active">
-    <h2>Habitaciones disponibles</h2>
-    <button id="btn-rooms">Cargar habitaciones</button>
-    <div id="rooms-list" class="grid"></div>
-  </section>
+  <footer>
+    Hospitech © 2025 | Sistema de reservas hoteleras
+  </footer>
 
-  <section id="reservations">
-    <h2>Reservas activas</h2>
-    <button id="btn-reservations">Cargar reservas</button>
-    <div id="reservations-list" class="grid"></div>
-  </section>
+  <script>
+    async function loadRooms() {
+      const loading = document.getElementById('loading');
+      const table = document.getElementById('roomsTable');
+      const tbody = document.getElementById('roomsBody');
 
-  <section id="services">
-    <h2>Servicios del hotel</h2>
-    <button id="btn-services">Cargar servicios</button>
-    <div id="services-list" class="grid"></div>
-  </section>
+      try {
+        // Mostrar mensaje de carga
+        loading.style.display = 'block';
+        table.style.display = 'none';
 
-  <section id="reports">
-    <h2>Reporte de ingresos</h2>
-    <button id="btn-report">Ver reporte</button>
-    <pre id="report-output"></pre>
-  </section>
-</main>
+        // Llamar API (proxy vía Nginx hacia la capa App)
+        const res = await fetch('/api/rooms.php?available=true');
+        if (!res.ok) throw new Error('Error HTTP ' + res.status);
 
-<footer>
-  <p>© 2025 Hospitech | Sistema Hotelero - Todos los derechos reservados</p>
-</footer>
+        const data = await res.json();
 
-<script src="app.js"></script>
+        // Limpiar tabla y renderizar filas
+        tbody.innerHTML = '';
+        data.forEach(room => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${room.id}</td>
+            <td>${room.room_number}</td>
+            <td>${room.type}</td>
+            <td>${parseFloat(room.price).toFixed(2)}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        // Mostrar tabla
+        loading.style.display = 'none';
+        table.style.display = 'table';
+      } catch (e) {
+        loading.innerHTML = '❌ Error al cargar habitaciones: ' + e.message;
+        console.error('Error:', e);
+      }
+    }
+
+    // Llamar automáticamente al cargar la página
+    window.addEventListener('DOMContentLoaded', loadRooms);
+  </script>
 </body>
+
 </html>
