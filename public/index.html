@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Hospitech | Sistema Hotelero</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🏨 Hospitech</h1>
+  <nav>
+    <button onclick="showSection('rooms')">Habitaciones</button>
+    <button onclick="showSection('reservations')">Reservas</button>
+    <button onclick="showSection('services')">Servicios</button>
+    <button onclick="showSection('reports')">Reportes</button>
+  </nav>
+</header>
+
+<main>
+  <section id="rooms" class="active">
+    <h2>Habitaciones disponibles</h2>
+    <button id="btn-rooms">Cargar habitaciones</button>
+    <div id="rooms-list" class="grid"></div>
+  </section>
+
+  <section id="reservations">
+    <h2>Reservas activas</h2>
+    <button id="btn-reservations">Cargar reservas</button>
+    <div id="reservations-list" class="grid"></div>
+  </section>
+
+  <section id="services">
+    <h2>Servicios del hotel</h2>
+    <button id="btn-services">Cargar servicios</button>
+    <div id="services-list" class="grid"></div>
+  </section>
+
+  <section id="reports">
+    <h2>Reporte de ingresos</h2>
+    <button id="btn-report">Ver reporte</button>
+    <pre id="report-output"></pre>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 Hospitech | Sistema Hotelero - Todos los derechos reservados</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
