@@ -22,7 +22,51 @@
       <div id="rooms-list" class="grid"></div>
     </section>
     <section id="reservations">
-      <h2>Reservas activas</h2> <button id="btn-reservations">Cargar reservas</button>
+      <h2>Reservas activas</h2> 
+      <div class="reservation-controls">
+        <button id="btn-reservations">Cargar reservas</button>
+        <button id="btn-new-reservation" class="btn-primary">Nueva reserva</button>
+      </div>
+      
+      <!-- Formulario para nueva reserva -->
+      <div id="reservation-form" class="form-container" style="display: none;">
+        <h3>Crear nueva reserva</h3>
+        <form id="new-reservation-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="user-id">ID de Usuario:</label>
+              <input type="text" id="user-id" name="user_id" required placeholder="u_123">
+            </div>
+            <div class="form-group">
+              <label for="hotel-select">Hotel:</label>
+              <select id="hotel-select" name="hotel_id" required>
+                <option value="">Seleccionar hotel...</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="check-in">Fecha de entrada:</label>
+              <input type="date" id="check-in" name="check_in_date" required>
+            </div>
+            <div class="form-group">
+              <label for="check-out">Fecha de salida:</label>
+              <input type="date" id="check-out" name="check_out_date" required>
+            </div>
+            <div class="form-group">
+              <label for="num-guests">Número de huéspedes:</label>
+              <input type="number" id="num-guests" name="num_guests" min="1" max="10" required>
+            </div>
+            <div class="form-group">
+              <label for="total-amount">Monto total:</label>
+              <input type="number" id="total-amount" name="total_amount" step="0.01" min="0" required>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Crear reserva</button>
+            <button type="button" id="cancel-reservation" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+      
       <div id="reservations-list" class="grid"></div>
     </section>
     <section id="services">
