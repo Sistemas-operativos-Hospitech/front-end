@@ -11,23 +11,160 @@
 <body>
   <header>
     <h1>🏨 Hospitech</h1>
-    <nav> <button onclick="showSection('rooms')">Habitaciones</button> <button
-        onclick="showSection('reservations')">Reservas</button> <button
-        onclick="showSection('services')">Servicios</button> <button onclick="showSection('reports')">Reportes</button>
+    <nav>
+      <button onclick="showSection('users')">Usuarios</button>
+      <button onclick="showSection('hotels')">Hoteles</button>
+      <button onclick="showSection('rooms')">Habitaciones</button>
+      <button onclick="showSection('reservations')">Reservas</button>
+      <button onclick="showSection('payments')">Pagos</button>
+      <button onclick="showSection('services')">Servicios</button>
+      <button onclick="showSection('reports')">Reportes</button>
     </nav>
   </header>
   <main>
+    <!-- Sección Usuarios -->
+    <section id="users">
+      <h2>Gestión de Usuarios</h2>
+      <div class="section-controls">
+        <button id="btn-users" class="btn-primary">Cargar usuarios</button>
+        <button id="btn-new-user" class="btn-primary">Nuevo usuario</button>
+      </div>
+
+      <!-- Formulario para nuevo usuario -->
+      <div id="user-form" class="form-container" style="display: none;">
+        <h3 id="user-form-title">Crear nuevo usuario</h3>
+        <form id="new-user-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="user-email">Email:</label>
+              <input type="email" id="user-email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="user-password">Contraseña:</label>
+              <input type="password" id="user-password" name="password_hash" required>
+            </div>
+            <div class="form-group">
+              <label for="user-fullname">Nombre completo:</label>
+              <input type="text" id="user-fullname" name="full_name" required>
+            </div>
+            <div class="form-group">
+              <label for="user-phone">Teléfono:</label>
+              <input type="tel" id="user-phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="user-address">Dirección:</label>
+              <input type="text" id="user-address" name="address">
+            </div>
+            <div class="form-group">
+              <label for="user-birth">Fecha de nacimiento:</label>
+              <input type="date" id="user-birth" name="date_of_birth">
+            </div>
+            <div class="form-group">
+              <label for="user-role">Rol:</label>
+              <select id="user-role" name="role" required>
+                <option value="cliente">Cliente</option>
+                <option value="empleado">Empleado</option>
+                <option value="admin">Administrador</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="user-active">Estado:</label>
+              <select id="user-active" name="is_active">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Guardar usuario</button>
+            <button type="button" id="cancel-user" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="users-list" class="grid"></div>
+    </section>
+
+    <!-- Sección Hoteles -->
+    <section id="hotels">
+      <h2>Gestión de Hoteles</h2>
+      <div class="section-controls">
+        <button id="btn-hotels" class="btn-primary">Cargar hoteles</button>
+        <button id="btn-new-hotel" class="btn-primary">Nuevo hotel</button>
+      </div>
+
+      <!-- Formulario para nuevo hotel -->
+      <div id="hotel-form" class="form-container" style="display: none;">
+        <h3 id="hotel-form-title">Crear nuevo hotel</h3>
+        <form id="new-hotel-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="hotel-name">Nombre:</label>
+              <input type="text" id="hotel-name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="hotel-address">Dirección:</label>
+              <input type="text" id="hotel-address" name="address" required>
+            </div>
+            <div class="form-group">
+              <label for="hotel-city">Ciudad:</label>
+              <input type="text" id="hotel-city" name="city" required>
+            </div>
+            <div class="form-group">
+              <label for="hotel-country">País:</label>
+              <input type="text" id="hotel-country" name="country" required>
+            </div>
+            <div class="form-group">
+              <label for="hotel-phone">Teléfono:</label>
+              <input type="tel" id="hotel-phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="hotel-email">Email:</label>
+              <input type="email" id="hotel-email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="hotel-description">Descripción:</label>
+              <textarea id="hotel-description" name="description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="hotel-rating">Calificación (estrellas):</label>
+              <select id="hotel-rating" name="star_rating">
+                <option value="1">1 estrella</option>
+                <option value="2">2 estrellas</option>
+                <option value="3">3 estrellas</option>
+                <option value="4">4 estrellas</option>
+                <option value="5">5 estrellas</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Guardar hotel</button>
+            <button type="button" id="cancel-hotel" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="hotels-list" class="grid"></div>
+    </section>
+
+    <!-- Sección Habitaciones -->
     <section id="rooms" class="active">
-      <h2>Habitaciones disponibles</h2> <button id="btn-rooms">Cargar habitaciones</button>
+      <h2>Gestión de Habitaciones</h2>
+      <div class="section-controls">
+        <button id="btn-rooms" class="btn-primary">Todas las habitaciones</button>
+        <button id="btn-available-rooms" class="btn-primary">Habitaciones disponibles</button>
+      </div>
       <div id="rooms-list" class="grid"></div>
     </section>
+
+    <!-- Sección Reservas -->
     <section id="reservations">
-      <h2>Reservas activas</h2> 
-      <div class="reservation-controls">
-        <button id="btn-reservations">Cargar reservas</button>
+      <h2>Gestión de Reservas</h2>
+      <div class="section-controls">
+        <button id="btn-reservations" class="btn-primary">Cargar reservas</button>
         <button id="btn-new-reservation" class="btn-primary">Nueva reserva</button>
       </div>
-      
+
       <!-- Formulario para nueva reserva -->
       <div id="reservation-form" class="form-container" style="display: none;">
         <h3>Crear nueva reserva</h3>
@@ -66,16 +203,88 @@
           </div>
         </form>
       </div>
-      
+
       <div id="reservations-list" class="grid"></div>
     </section>
+
+    <!-- Sección Pagos -->
+    <section id="payments">
+      <h2>Gestión de Pagos</h2>
+      <div class="section-controls">
+        <button id="btn-new-payment" class="btn-primary">Registrar pago</button>
+      </div>
+
+      <!-- Formulario para nuevo pago -->
+      <div id="payment-form" class="form-container" style="display: none;">
+        <h3>Registrar nuevo pago</h3>
+        <form id="new-payment-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="payment-reservation">ID de Reserva:</label>
+              <input type="text" id="payment-reservation" name="reservation_id" required placeholder="r_001">
+            </div>
+            <div class="form-group">
+              <label for="payment-user">ID de Usuario:</label>
+              <input type="text" id="payment-user" name="user_id" required placeholder="u_001">
+            </div>
+            <div class="form-group">
+              <label for="payment-method">Método de pago:</label>
+              <select id="payment-method" name="payment_method" required>
+                <option value="">Seleccionar método...</option>
+                <option value="tarjeta">Tarjeta de crédito</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="transferencia">Transferencia</option>
+                <option value="paypal">PayPal</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="payment-amount">Monto:</label>
+              <input type="number" id="payment-amount" name="amount" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="payment-status">Estado:</label>
+              <select id="payment-status" name="status" required>
+                <option value="confirmado">Confirmado</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="cancelado">Cancelado</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="payment-reference">Referencia de transacción:</label>
+              <input type="text" id="payment-reference" name="transaction_reference" placeholder="TXN12345">
+            </div>
+            <div class="form-group">
+              <label for="payment-gateway">Gateway externo:</label>
+              <input type="text" id="payment-gateway" name="external_gateway" placeholder="Stripe, PayPal, etc.">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Registrar pago</button>
+            <button type="button" id="cancel-payment" class="btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Sección Servicios -->
     <section id="services">
-      <h2>Servicios del hotel</h2> <button id="btn-services">Cargar servicios</button>
+      <h2>Gestión de Servicios</h2>
+      <div class="section-controls">
+        <button id="btn-services" class="btn-primary">Cargar servicios</button>
+      </div>
       <div id="services-list" class="grid"></div>
     </section>
+
+    <!-- Sección Reportes -->
     <section id="reports">
-      <h2>Reporte de ingresos</h2> <button id="btn-report">Ver reporte</button>
-      <pre id="report-output"></pre>
+      <h2>Reportes del Sistema</h2>
+      <div class="section-controls">
+        <button id="btn-payment-report" class="btn-primary">Reporte de Pagos</button>
+      </div>
+      <div id="report-container">
+        <div id="report-summary" class="report-summary"></div>
+        <div id="report-details" class="report-details"></div>
+      </div>
     </section>
   </main>
   <footer>
